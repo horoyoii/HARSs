@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "397929097560",
+    "firebase_url": "https://hars-1c9cd.firebaseio.com",
+    "project_id": "hars-1c9cd",
+    "storage_bucket": "hars-1c9cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397929097560:android:5f7b3bb05c11abdf",
+        "android_client_info": {
+          "package_name": "com.example.hars"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397929097560-quccd3g9e2ikq94mkr0ahfc36dp0pk4l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hars",
+            "certificate_hash": "6b89d201f808f435e57f624fcfe15ad12c6d748a"
+          }
+        },
+        {
+          "client_id": "397929097560-6ebhqe7bab7i9feqdl1j1otfqcpg6fr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeuO5cjzWcYMtQFYgLeSo4t0vEEMcGyMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397929097560-6ebhqe7bab7i9feqdl1j1otfqcpg6fr7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
