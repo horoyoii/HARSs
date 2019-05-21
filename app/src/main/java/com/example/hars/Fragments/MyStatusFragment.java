@@ -1,14 +1,10 @@
 package com.example.hars.Fragments;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +15,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
+import com.example.hars.Application.App;
 import com.example.hars.MainActivity;
 import com.example.hars.R;
+import com.example.hars.Util.FirebaseUtil;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -62,6 +60,33 @@ public class MyStatusFragment extends Fragment  { //TODO : implements Observer
         Log.d(TAG, "onCreateView()");
 
         view = inflater.inflate(R.layout.fragment_mystatus, container, false);
+        sta = view.findViewById(R.id.ms_txt_status);
+        button_stop = view.findViewById(R.id.msF_btnStop);
+
+        FirebaseUtil firebaseUtil = ((App)getActivity().getApplication()).getFirebaseUtil();
+        firebaseUtil.getThisUserRef().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("HHH", dataSnapshot.getKey());
+                Log.d("HHH", dataSnapshot.getValue().toString());
+                sta.setText(dataSnapshot.child("status").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        button_stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).startService();
+            }
+        });
+
+
+
         /*
         sta = view.findViewById(R.id.ms_txt_status);
         using_time = view.findViewById(R.id.ms_txt_time);
