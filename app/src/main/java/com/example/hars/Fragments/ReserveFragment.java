@@ -1,6 +1,7 @@
 package com.example.hars.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -16,14 +18,16 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
+import com.example.hars.MainActivity;
 import com.example.hars.R;
+import com.example.hars.ReservingActivity;
 
 
 // In this case, the fragment displays simple text based on the page
 public class ReserveFragment extends Fragment {
     private static final String TAG = ReserveFragment.class.getName();
     private View view;
-
+    Button button;
     //private FirebaseUtil mFirebaseUtil;
     //private User mUser;
 
@@ -89,6 +93,16 @@ public class ReserveFragment extends Fragment {
         RequestOptions requestOptions = new RequestOptions().centerCrop();
         DrawableImageViewTarget target = new DrawableImageViewTarget(imageView);
         Glide.with(this).setDefaultRequestOptions(requestOptions.override(1300,500)).load(R.raw.jal2).into(target);
+
+        button = view.findViewById(R.id.btn_st);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ReservingActivity.class);
+                ((MainActivity)getActivity()).startService();
+                startActivity(intent);
+            }
+        });
 
         //adapter.notifyDataSetChanged();
         return view;

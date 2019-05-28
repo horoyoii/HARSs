@@ -30,7 +30,7 @@ import java.util.HashMap;
 import static com.example.hars.Application.App.CHANNEL_ID;
 
 public class MyService extends Service implements BeaconConsumer{ // TODO : implement Observer
-    public static final int EMPTY_RANGE = 3;
+    public static final int EMPTY_RANGE = 10;
     public static final String ACTION_COUNTER_RES = "ACTION_COUNTER_RES";
     public static final String ACTION_COUNTER_USE = "ACTION_COUNTER_USE";
     private enum DISTANCE{
@@ -142,6 +142,8 @@ public class MyService extends Service implements BeaconConsumer{ // TODO : impl
                 // unbind 전까지 1초에 한번씩 호출된다.
                 threadhold++;
                 usingtime++;
+                //TODO: 향후에 추가
+
                 logg("현재 상태 : "+String.valueOf(status));
                 logg("threadhold : "+String.valueOf(threadhold));
                 logg("usingtime : "+String.valueOf(usingtime));
@@ -162,6 +164,8 @@ public class MyService extends Service implements BeaconConsumer{ // TODO : impl
                 if (beacons.size() > 0) {
                     for (Beacon beacon : beacons) {
                         Log.i(TAG, "The first beacon I see is about "+beacons.iterator().next().getDistance()+" meters away.");
+                        //Log.i(TAG, String.valueOf(beacon.getId2())+" and "+String.valueOf(beacon.getId3()));
+
                         if(major == beacon.getId2().toInt() && minor == beacon.getId3().toInt()){
                             if(status == User.Status_user.RESERVING){// 예약 -> 시작직전의 상황
                                 if(beacon.getDistance() < EMPTY_RANGE) {

@@ -81,7 +81,7 @@ public class MyStatusFragment extends Fragment  { //TODO : implements Observer
         button_stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).startService();
+                ((MainActivity)getActivity()).stopService();
             }
         });
 
@@ -216,23 +216,7 @@ public class MyStatusFragment extends Fragment  { //TODO : implements Observer
     */
 
 
-    @Override
-    public void onDestroyView() {
-        Log.d(TAG, "onDestroyView()");
-        super.onDestroyView();
-    }
 
-    @Override
-    public void onDestroy() {
-        Log.d(TAG, "onDestroy()");
-        super.onDestroy();
-    }
-
-    @Override
-    public void onDetach() {
-        Log.d(TAG, "onDetach()");
-        super.onDetach();
-    }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
@@ -242,31 +226,6 @@ public class MyStatusFragment extends Fragment  { //TODO : implements Observer
 
 
 
-    @Override
-    public void onStart() {
-        Log.d(TAG, "onStart()");
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        Log.d(TAG, "onStop()");
-        super.onStop();
-    }
-
-    @Override
-    public void onResume() {
-        Log.d(TAG, "onResume()");
-        super.onResume();
-
-
-    }
-
-    @Override
-    public void onPause() {
-        Log.d(TAG, "onPause()");
-        super.onPause();
-    }
 
 
 }

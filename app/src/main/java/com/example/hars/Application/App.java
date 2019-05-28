@@ -5,12 +5,13 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
+import com.example.hars.MainActivity;
 import com.example.hars.Util.FirebaseUtil;
 
 public class App extends Application {
     public static final String CHANNEL_ID = "ServiceChannel";
     private FirebaseUtil firebaseUtil;
-
+    public MainActivity ma;
 
     @Override
     public void onCreate() {
@@ -38,5 +39,8 @@ public class App extends Application {
         }
     }
 
+    public void ref(MainActivity ma){
+        this.ma = ma;
+    }
 
 }

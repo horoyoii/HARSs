@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.hars.Adapters.FragmentAdapter;
+import com.example.hars.Application.App;
 import com.example.hars.Fragments.MyStatusFragment;
 import com.example.hars.Fragments.ReserveFragment;
 import com.example.hars.Fragments.SettingFragment;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ((App)getApplicationContext()).ref(this);
 
         initViewPager();
 
@@ -92,8 +93,8 @@ public class MainActivity extends AppCompatActivity{
         //mUser.user_reserve(section,seat);
 
         Intent intent2 = new Intent(this, MyService.class);
-        //intent2.putExtra(ReservingActivity.R_MAJOR, SectionToMajor(section));
-        //intent2.putExtra(ReservingActivity.R_MINOR, SeatToMinor(seat));
+        intent2.putExtra("major", 10001);
+        intent2.putExtra("minor", 19641);
         ContextCompat.startForegroundService(this, intent2);
 
         //TODO : 대기 화면 보여주기
