@@ -1,10 +1,14 @@
 package com.example.hars.Fragments;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +17,15 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.hars.Application.App;
 import com.example.hars.MainActivity;
+import com.example.hars.Models.User;
+import com.example.hars.Observer;
 import com.example.hars.R;
+import com.example.hars.Service.MyService;
 import com.example.hars.Util.FirebaseUtil;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,7 +34,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class MyStatusFragment extends Fragment  { //TODO : implements Observer
+/*
+파이어베이스로부터 listener 가 있다.
+
+
+ */
+
+public class MyStatusFragment extends Fragment implements Observer {
     private static final String TAG = MyStatusFragment.class.getName();
     private View view;
     ProgressBar mProgressBar;
@@ -35,7 +49,8 @@ public class MyStatusFragment extends Fragment  { //TODO : implements Observer
 
     private FrameLayout container_status;
     private Button button_stop;
-    private TextView sta, using_time, user_email, CurrentSeat;
+    private TextView sta, using_time, user_email, CurrentSeat, grade;
+
     @Override
     public void onAttach(Context context) {
         Log.d(TAG, "onAttach()");
@@ -49,8 +64,9 @@ public class MyStatusFragment extends Fragment  { //TODO : implements Observer
         Log.d(TAG, "onCreate()");
         super.onCreate(savedInstanceState);
 
-        //LocalBroadcastManager.getInstance(getActivity()).registerReceiver(
-        //        messageReceiver, new IntentFilter(MyService.ACTION_COUNTER_USE));
+
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(
+                messageReceiver, new IntentFilter(MyService.ACTION_COUNTER_USE));
 
 
     }
@@ -62,42 +78,16 @@ public class MyStatusFragment extends Fragment  { //TODO : implements Observer
         view = inflater.inflate(R.layout.fragment_mystatus, container, false);
         sta = view.findViewById(R.id.ms_txt_status);
         button_stop = view.findViewById(R.id.msF_btnStop);
-
-        FirebaseUtil firebaseUtil = ((App)getActivity().getApplication()).getFirebaseUtil();
-        firebaseUtil.getThisUserRef().addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("HHH", dataSnapshot.getKey());
-                Log.d("HHH", dataSnapshot.getValue().toString());
-                sta.setText(dataSnapshot.child("status").getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        button_stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity)getActivity()).stopService();
-            }
-        });
-
-
-
-        /*
         sta = view.findViewById(R.id.ms_txt_status);
         using_time = view.findViewById(R.id.ms_txt_time);
         user_email = view.findViewById(R.id.txt_user_mail);
-        user_email.setText(Singleton.getInstance().getUserMail());
-        button_stop = view.findViewById(R.id.button2);
+        button_stop = view.findViewById(R.id.msF_btnStop);
         CurrentSeat = view.findViewById(R.id.ms_txt_seat);
+        grade = view.findViewById(R.id.ms_txt_grade);
 
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(
                 messageReceiver, new IntentFilter(MyService.ACTION_COUNTER_USE));
-        */
+
 
         return view;
     }
@@ -118,17 +108,17 @@ public class MyStatusFragment extends Fragment  { //TODO : implements Observer
 
         myRef.setValue("Hello, World!");
 
-        /*
-        mFirebaseUtil = ((MainActivity)getActivity()).mFirebaseUtil;
-        mUser = ((MainActivity)getActivity()).mUser;
 
-        mUser.get_user_ref().child("status").addValueEventListener(new ValueEventListener() {
+        ((App)getActivity().getApplication()).getFirebaseUtil().
+                getThisUserRef().
+                child("status").
+                addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
-                if (value != null && getActivity() instanceof  MainActivity){
-                    ((MainActivity)getActivity()).notifyTheStatus(User.Status_user.valueOf(value));
-                }
+                //TODO : 이 부분이 에러가 뜰 수 있다. - 사용중일 때 앱을 껏다 킨 경우 어떤 것들이 초기화되지 않은 상태가 된다.
+                ((MainActivity)getActivity()).notifyTheStatus(User.Status_user.valueOf(value));
+
             }
 
             @Override
@@ -136,22 +126,23 @@ public class MyStatusFragment extends Fragment  { //TODO : implements Observer
 
             }
         });
-        */
+
 
     }
-    /*
+
     @Override
     public void update(User.Status_user status) {
-        Log.d("TESS", "call update in MyStatusFragment : "+status);
         switch (status){
             case ONLINE:
                 using_time.setText("-");
                 sta.setText("-");
                 button_stop.setText("예약하기");
+                CurrentSeat.setText("-");
                 button_stop.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //TODO : GoTo reservation fragmnet
+                        ((App)getActivity().getApplication()).ma.SwitchCurrentFragment(0);
+
                     }
                 });
                 break;
@@ -161,22 +152,24 @@ public class MyStatusFragment extends Fragment  { //TODO : implements Observer
             case RESERVING_OVER:
                 sta.setTextSize(13);
                 sta.setText("예약시간초과");
-                button_stop.setText("초기화");
+                button_stop.setText("확인");
                 button_stop.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mUser.user_reservation_over_confirm();
+                        ((App)getActivity().getApplication()).getFirebaseUtil().getThisUserRef().child("status").setValue(User.Status_user.ONLINE);
                         sta.setTextSize(17);
                     }
                 });
                 break;
             case OCCUPYING:
                 sta.setText("사용중");
+                CurrentSeat.setText(((App)getActivity().getApplication()).getSelectedSeatNum());
                 button_stop.setText("사용종료");
                 button_stop.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        ((MainActivity)getActivity()).show_toast_msg("사용종료", true);
+                        ((App)getActivity().getApplication()).getFirebaseUtil().getThisUserRef().child("status").setValue(User.Status_user.ONLINE);
+                        Toast.makeText(getActivity(), "사용종료", Toast.LENGTH_LONG).show();
                         ((MainActivity)getActivity()).stopService();
                     }
                 });
@@ -186,16 +179,15 @@ public class MyStatusFragment extends Fragment  { //TODO : implements Observer
                 break;
             case STEPPING_OUT_OVER:
                 sta.setText("자리비움 초과");
-                button_stop.setText("초기화");
+                CurrentSeat.setText("자동 반납되었습니다.");
+                button_stop.setText("확인");
                 button_stop.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mUser.user_step_out_over_confirm();
-                        sta.setTextSize(17);
+                        ((App)getActivity().getApplication()).getFirebaseUtil().getThisUserRef().child("status").setValue(User.Status_user.ONLINE);
+                        Toast.makeText(getActivity(), "-10점 ",Toast.LENGTH_LONG).show();
                     }
                 });
-                break;
-            case SUBSCRIBING:
                 break;
         }
     }
@@ -213,7 +205,7 @@ public class MyStatusFragment extends Fragment  { //TODO : implements Observer
             using_time.setText(total_time);
         }
     };
-    */
+
 
 
 

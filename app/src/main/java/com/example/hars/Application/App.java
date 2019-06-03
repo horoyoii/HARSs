@@ -4,21 +4,32 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
+import android.util.Log;
 
 import com.example.hars.MainActivity;
 import com.example.hars.Util.FirebaseUtil;
 
 public class App extends Application {
-    public static final String CHANNEL_ID = "ServiceChannel";
+    public static final String CHANNEL_ID = "HARS_ServiceChannel";
     private FirebaseUtil firebaseUtil;
     public MainActivity ma;
+    public String selectedSeatNum;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d("HHH", "App onCreate()");
         createNotificationChannel();
         firebaseUtil = new FirebaseUtil();
 
+    }
+
+    public String getSelectedSeatNum() {
+        return selectedSeatNum;
+    }
+
+    public void setSelectedSeatNum(String selectedSeatNum) {
+        this.selectedSeatNum = selectedSeatNum;
     }
 
     public FirebaseUtil getFirebaseUtil(){

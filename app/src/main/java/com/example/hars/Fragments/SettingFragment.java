@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.example.hars.Application.App;
 import com.example.hars.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -124,9 +125,10 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
     }
 
     private void sign_out() {
-        //mFirebaseUtil.getAuth().signOut();
-        //mUser.user_logout();
-        // Google sign out
+
+        ((App)getActivity().getApplication()).getFirebaseUtil().getAuth().signOut();
+
+
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), GoogleSignInOptions.DEFAULT_SIGN_IN);
         mGoogleSignInClient.signOut();
 

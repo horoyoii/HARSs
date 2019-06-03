@@ -13,6 +13,7 @@ import android.util.Log;
 import com.example.hars.Application.App;
 import com.example.hars.MainActivity;
 import com.example.hars.Models.User;
+import com.example.hars.Observer;
 import com.example.hars.R;
 import com.example.hars.Util.FirebaseUtil;
 
@@ -29,8 +30,8 @@ import java.util.HashMap;
 
 import static com.example.hars.Application.App.CHANNEL_ID;
 
-public class MyService extends Service implements BeaconConsumer{ // TODO : implement Observer
-    public static final int EMPTY_RANGE = 10;
+public class MyService extends Service implements BeaconConsumer { // TODO : implement Observer
+    public static final int EMPTY_RANGE = 3;
     public static final String ACTION_COUNTER_RES = "ACTION_COUNTER_RES";
     public static final String ACTION_COUNTER_USE = "ACTION_COUNTER_USE";
     private enum DISTANCE{
@@ -68,7 +69,7 @@ public class MyService extends Service implements BeaconConsumer{ // TODO : impl
         Log.d("HHH", "Service onCreate");
         Init();
         Limit_using_time = 10;
-        Limit_reserving_time = 10;
+        Limit_reserving_time = 20;
         Limit_empty_time = 10;
     }
 
@@ -100,16 +101,18 @@ public class MyService extends Service implements BeaconConsumer{ // TODO : impl
         stopForeground(true);
         switch (to){
             case RESERVING:
+                Log.d("HHH", "called in setstatus reserving");
                 startForeground(1,Notify.get(User.Status_user.RESERVING));
                 break;
             case OCCUPYING:
+                Log.d("HHH", "called in setstatus occupying");
                 startForeground(1,Notify.get(User.Status_user.OCCUPYING));
                 distance = DISTANCE.IMMEDIATE;
                 status = User.Status_user.OCCUPYING;
                 firebaseUtil.getThisUserRef().child("status").setValue(User.Status_user.OCCUPYING);
                 break;
             case STEPPING_OUT:
-                startForeground(1,Notify.get(User.Status_user.ONLINE));
+                startForeground(1,Notify.get(User.Status_user.STEPPING_OUT));
                 distance = DISTANCE.NEAR;
                 status = User.Status_user.STEPPING_OUT;
                 firebaseUtil.getThisUserRef().child("status").setValue(User.Status_user.STEPPING_OUT);
@@ -144,16 +147,15 @@ public class MyService extends Service implements BeaconConsumer{ // TODO : impl
                 usingtime++;
                 //TODO: 향후에 추가
 
-                logg("현재 상태 : "+String.valueOf(status));
-                logg("threadhold : "+String.valueOf(threadhold));
-                logg("usingtime : "+String.valueOf(usingtime));
+//                logg("현재 상태 : "+String.valueOf(status));
+//                logg("threadhold : "+String.valueOf(threadhold));
+//                logg("usingtime : "+String.valueOf(usingtime));
 
                 if(status == User.Status_user.RESERVING) {
                     sendReservingTime(threadhold);
                     if (threadhold >= Limit_reserving_time) {
                         // 예약 타임 아웃
-                        firebaseUtil.getThisUserRef().child("status").child("status").setValue(User.Status_user.RESERVING_OVER);
-                        //mUser.user_reservation_over();
+                        firebaseUtil.getThisUserRef().child("status").setValue(User.Status_user.RESERVING_OVER);
                         stopForeground(true);
                         stopSelf();
                     }
@@ -163,10 +165,10 @@ public class MyService extends Service implements BeaconConsumer{ // TODO : impl
 
                 if (beacons.size() > 0) {
                     for (Beacon beacon : beacons) {
-                        Log.i(TAG, "The first beacon I see is about "+beacons.iterator().next().getDistance()+" meters away.");
                         //Log.i(TAG, String.valueOf(beacon.getId2())+" and "+String.valueOf(beacon.getId3()));
 
                         if(major == beacon.getId2().toInt() && minor == beacon.getId3().toInt()){
+                            //Log.i(TAG, "The Target beacon I see is about "+beacons.iterator().next().getDistance()+" meters away.");
                             if(status == User.Status_user.RESERVING){// 예약 -> 시작직전의 상황
                                 if(beacon.getDistance() < EMPTY_RANGE) {
                                     setStatus(User.Status_user.OCCUPYING);
@@ -191,7 +193,7 @@ public class MyService extends Service implements BeaconConsumer{ // TODO : impl
                                         // 비움 초과 시
                                         if(threadhold >= Limit_empty_time){
                                             //mUser.user_step_out_over();
-                                            firebaseUtil.getThisUserRef().child("status").child("status").setValue(User.Status_user.STEPPING_OUT_OVER);
+                                            firebaseUtil.getThisUserRef().child("status").setValue(User.Status_user.STEPPING_OUT_OVER);
                                             //mUser.user_step_out_over();
                                             stopForeground(true);
                                             stopSelf();
@@ -259,7 +261,7 @@ public class MyService extends Service implements BeaconConsumer{ // TODO : impl
                 .setContentIntent(pendingIntent)
                 .build());
 
-        Notify.put(User.Status_user.ONLINE, new NotificationCompat.Builder(this, CHANNEL_ID)
+        Notify.put(User.Status_user.STEPPING_OUT, new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("자리비움")
                 .setContentText("자리비움중입니다.")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)

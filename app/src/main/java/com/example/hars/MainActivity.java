@@ -1,6 +1,8 @@
 package com.example.hars;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -14,13 +16,65 @@ import com.example.hars.Application.App;
 import com.example.hars.Fragments.MyStatusFragment;
 import com.example.hars.Fragments.ReserveFragment;
 import com.example.hars.Fragments.SettingFragment;
+import com.example.hars.Models.User;
 import com.example.hars.Service.MyService;
+import com.google.android.gms.common.SignInButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.yqritc.scalablevideoview.ScalableType;
+import com.yqritc.scalablevideoview.ScalableVideoView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements Subject{
+
+    public ArrayList<Observer> observers;
+    @Override
+    public void registerObserver(Observer ob) {
+        observers.add(ob);
+    }
+
+
+
+    @Override
+    public void deleteObserver(Observer ob) {
+        int index = observers.indexOf(ob);
+        observers.remove(index);
+    }
+
+    @Override
+    public void notifyTheStatus(User.Status_user status) {
+        switch (status) {
+            case ONLINE:
+                mViewPager.setCurrentItem(1);
+                break;
+            case RESERVING:
+                mViewPager.setCurrentItem(1);
+                break;
+            case RESERVING_OVER:
+            case OCCUPYING:
+            case OCCUPYING_OVER:
+            case STEPPING_OUT:
+            case STEPPING_OUT_OVER:
+                mViewPager.setCurrentItem(1);
+                break;
+        }
+
+
+        for(Observer ob : observers){
+            ob.update(status);
+        }
+    }
+
+    public void SwitchCurrentFragment(int n){
+        mViewPager.setCurrentItem(n);
+    }
 
     private TabLayout mTabLayout;
     public ViewPager mViewPager;
@@ -37,8 +91,24 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ((App)getApplicationContext()).ref(this);
+        observers = new ArrayList<>();
 
         initViewPager();
+
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+
+            boolean emailVerified = user.isEmailVerified();
+
+            String uid = user.getUid();
+            Log.d("HHH", uid);
+
+        }
+
 
     }
 
@@ -67,7 +137,7 @@ public class MainActivity extends AppCompatActivity{
 
         MyStatusFragment myStatusFragment = new MyStatusFragment();
         fragments.add(myStatusFragment);
-        //registerObserver(myStatusFragment);
+        registerObserver(myStatusFragment);
 
         fragments.add(new SettingFragment());
 
@@ -86,29 +156,22 @@ public class MainActivity extends AppCompatActivity{
 
     }
     //TODO : 인자로 seat num 받게끔
-    public void startService(){
-        Log.d("HHH", "calle startService");
-        // TODO: 인자로 자리 섹터- 번호 를 받고
-        // 여기서 비콘 major minor로 변환한다.`
-        //mUser.user_reserve(section,seat);
+    public void startService(String selectedSeatNum){
 
         Intent intent2 = new Intent(this, MyService.class);
         intent2.putExtra("major", 10001);
         intent2.putExtra("minor", 19641);
         ContextCompat.startForegroundService(this, intent2);
 
-        //TODO : 대기 화면 보여주기
-        /*
+
+        ((App)getApplication()).getFirebaseUtil().getThisUserRef().child("status").setValue(User.Status_user.RESERVING);
         Intent intent = new Intent(this, ReservingActivity.class);
-        intent.putExtra("major", section);
-        intent.putExtra("minor", seat);
+        intent.putExtra("seatNum", selectedSeatNum);
         startActivity(intent);
-        */
+
     }
 
     public void stopService(){
-        //mUser.get_user_ref().child("status").setValue(User.Status_user.ONLINE);
-        //mUser.user_stop();
         Intent intent = new Intent(this, MyService.class);
         this.stopService(intent);
     }

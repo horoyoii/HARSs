@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/laylay"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/maps"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <GridLayout
+                android:layout_width="155dp"
+                android:layout_height="112dp"
+                android:layout_marginLeft="45dp"
+                android:layout_marginTop="15dp"
+                android:columnCount="13"
+                android:orientation="horizontal"
+                android:rowCount="13">
+
+                <Button
+                    android:id="@+id/a00"
+                    style="@style/CustomButtonView"
+                    android:layout_row="0"
+                    android:layout_column="5"
+                    android:text="a00" />
+
+                <Button
+                    android:id="@+id/a01"
+                    style="@style/CustomButtonView"
+                    android:text="a01" />
+
+                <Button
+                    android:id="@+id/a02"
+                    style="@style/CustomButtonView"
+                    android:text="a02" />
+
+                <Button
+                    android:id="@+id/a03"
+                    style="@style/CustomButtonView"
+                    android:text="a03" />
+
+                <Button
+                    android:id="@+id/a04"
+                    style="@style/CustomButtonView"
+                    android:text="a04" />
+
+                <Button
+                    android:id="@+id/a05"
+                    style="@style/CustomButtonView"
+                    android:text="a05" />
+
+                <Button
+                    android:id="@+id/a06"
+                    style="@style/CustomButtonView"
+                    android:text="a06" />
+
+                <Button
+                    android:id="@+id/a07"
+                    style="@style/CustomButtonView"
+                    android:layout_row="1"
+                    android:layout_column="2"
+                    android:text="a07" />
+
+                <Button
+                    android:id="@+id/a08"
+                    style="@style/CustomButtonView"
+                    android:layout_row="2"
+                    android:layout_column="2"
+                    android:text="a08" />
+
+                <Button
+                    android:id="@+id/a09"
+                    style="@style/CustomButtonView"
+                    android:text="a09" />
+
+                <Button
+                    android:id="@+id/a10"
+                    style="@style/CustomButtonView"
+                    android:text="a10" />
+
+                <Button
+                    android:id="@+id/a11"
+                    style="@style/CustomButtonView"
+                    android:layout_column="8"
+                    android:text="a11" />
+
+                <Button
+                    android:id="@+id/a12"
+                    style="@style/CustomButtonView"
+                    android:text="a12" />
+
+                <Button
+                    android:id="@+id/a13"
+                    style="@style/CustomButtonView"
+                    android:text="a13" />
+
+                <Button
+                    android:id="@+id/a14"
+                    style="@style/CustomButtonView"
+                    android:text="a14" />
+
+                <Button
+                    android:id="@+id/a15"
+                    style="@style/CustomButtonView"
+                    android:layout_row="3"
+                    android:layout_column="2"
+                    android:text="a15" />
+
+                <Button
+                    android:id="@+id/a16"
+                    style="@style/CustomButtonView"
+                    android:text="a16" />
+
+                <Button
+                    android:id="@+id/a17"
+                    style="@style/CustomButtonView"
+                    android:text="a17" />
+
+                <Button
+                    android:id="@+id/a18"
+                    style="@style/CustomButtonView"
+                    android:text="a18" />
+
+                <Button
+                    android:id="@+id/a19"
+                    style="@style/CustomButtonView"
+                    android:layout_row="8"
+                    android:layout_column="2"
+                    android:text="a19" />
+
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="65dp"
+                android:columnCount="5"
+                android:orientation="horizontal"
+                android:rowCount="5">
+
+                <Button
+                    android:id="@+id/b00"
+                    style="@style/CustomButtonView"
+                    android:text="b00" />
+
+                <Button
+                    android:id="@+id/b01"
+                    style="@style/CustomButtonView"
+                    android:text="b01" />
+
+                <Button
+                    android:id="@+id/b2"
+                    style="@style/CustomButtonView"
+                    android:text="b02" />
+
+                <Button
+                    android:id="@+id/b3"
+                    style="@style/CustomButtonView"
+                    android:text="b03" />
+
+                <Button
+                    android:id="@+id/b4"
+                    style="@style/CustomButtonView"
+                    android:text="b04" />
+
+                <Button
+                    android:id="@+id/b5"
+                    style="@style/CustomButtonView"
+                    android:text="b05" />
+
+                <Button
+                    android:id="@+id/b6"
+                    style="@style/CustomButtonView"
+                    android:text="b06" />
+
+                <Button
+                    android:id="@+id/b7"
+                    style="@style/CustomButtonView"
+                    android:text="b07" />
+
+                <Button
+                    android:id="@+id/b8"
+                    style="@style/CustomButtonView"
+                    android:text="b08" />
+
+                <Button
+                    android:id="@+id/b9"
+                    style="@style/CustomButtonView"
+                    android:text="b09" />
+
+                <Button
+                    android:id="@+id/b10"
+                    style="@style/CustomButtonView"
+                    android:text="b10" />
+
+                <Button
+                    android:id="@+id/b11"
+                    style="@style/CustomButtonView"
+                    android:text="b11" />
+
+                <Button
+                    android:id="@+id/b12"
+                    style="@style/CustomButtonView"
+                    android:text="b12" />
+
+                <Button
+                    android:id="@+id/b13"
+                    style="@style/CustomButtonView"
+                    android:text="b13" />
+
+                <Button
+                    android:id="@+id/b14"
+                    style="@style/CustomButtonView"
+                    android:text="b14" />
+
+                <Button
+                    android:id="@+id/b15"
+                    style="@style/CustomButtonView"
+                    android:text="b15" />
+
+                <Button
+                    android:id="@+id/b16"
+                    style="@style/CustomButtonView"
+                    android:text="b16" />
+
+                <Button
+                    android:id="@+id/b17"
+                    style="@style/CustomButtonView"
+                    android:text="b17" />
+
+                <Button
+                    android:id="@+id/b18"
+                    style="@style/CustomButtonView"
+                    android:text="b18" />
+
+                <Button
+                    android:id="@+id/b19"
+                    style="@style/CustomButtonView"
+                    android:text="b19" />
+
+
+            </GridLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/laylay2"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="horizontal">
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="65dp"
+                android:columnCount="5"
+                android:orientation="horizontal"
+                android:rowCount="5">
+
+                <Button
+                    android:id="@+id/c00"
+                    style="@style/CustomButtonView"
+                    android:text="c00" />
+
+                <Button
+                    android:id="@+id/c01"
+                    style="@style/CustomButtonView"
+                    android:text="c01" />
+
+                <Button
+                    android:id="@+id/c02"
+                    style="@style/CustomButtonView"
+                    android:text="c02" />
+
+                <Button
+                    android:id="@+id/c03"
+                    style="@style/CustomButtonView"
+                    android:text="c03" />
+
+                <Button
+                    android:id="@+id/c04"
+                    style="@style/CustomButtonView"
+                    android:text="c04" />
+
+                <Button
+                    android:id="@+id/c05"
+                    style="@style/CustomButtonView"
+                    android:text="c05" />
+
+                <Button
+                    android:id="@+id/c06"
+                    style="@style/CustomButtonView"
+                    android:text="c06" />
+
+                <Button
+                    android:id="@+id/c07"
+                    style="@style/CustomButtonView"
+                    android:text="c07" />
+
+                <Button
+                    android:id="@+id/c08"
+                    style="@style/CustomButtonView"
+                    android:text="c08" />
+
+                <Button
+                    android:id="@+id/c09"
+                    style="@style/CustomButtonView"
+                    android:text="c09" />
+
+
+
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="110dp"
+                android:layout_marginTop="65dp"
+                android:columnCount="5"
+                android:orientation="horizontal"
+                android:rowCount="5">
+
+                <Button
+                    android:id="@+id/d00"
+                    style="@style/CustomButtonView"
+                    android:text="d00" />
+
+                <Button
+                    android:id="@+id/d01"
+                    style="@style/CustomButtonView"
+                    android:text="d01" />
+
+                <Button
+                    android:id="@+id/d2"
+                    style="@style/CustomButtonView"
+                    android:text="d02" />
+
+                <Button
+                    android:id="@+id/d3"
+                    style="@style/CustomButtonView"
+                    android:text="d03" />
+
+                <Button
+                    android:id="@+id/d4"
+                    style="@style/CustomButtonView"
+                    android:text="d04" />
+
+                <Button
+                    android:id="@+id/d5"
+                    style="@style/CustomButtonView"
+                    android:text="d05" />
+
+                <Button
+                    android:id="@+id/d6"
+                    style="@style/CustomButtonView"
+                    android:text="d06" />
+
+                <Button
+                    android:id="@+id/d7"
+                    style="@style/CustomButtonView"
+                    android:text="d07" />
+
+                <Button
+                    android:id="@+id/d8"
+                    style="@style/CustomButtonView"
+                    android:text="d08" />
+
+                <Button
+                    android:id="@+id/d9"
+                    style="@style/CustomButtonView"
+                    android:text="d09" />
+
+
+            </GridLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
