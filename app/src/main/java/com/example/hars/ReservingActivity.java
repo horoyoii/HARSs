@@ -47,7 +47,7 @@ public class ReservingActivity extends AppCompatActivity implements Observer{
         ((App)getApplicationContext()).ma.registerObserver(this);
 
         mProgressBar=findViewById(R.id.progressbar);
-        mProgressBar.setMax(20);
+        mProgressBar.setMax(40);
         mProgressBar.setProgressTextSize(80);
         mProgressBar.setProgressFormatter(new CircleProgressBar.ProgressFormatter() {
             @Override

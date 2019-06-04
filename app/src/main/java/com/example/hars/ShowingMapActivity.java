@@ -80,15 +80,13 @@ public class ShowingMapActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void MarkUsingSeat(View v){
-        ArrayList<Integer> seatA = new ArrayList<>(Collections.nCopies(32, 0));
+        ArrayList<Integer> seatA = new ArrayList<>(Collections.nCopies(12, 0));
         seatA.set(0, 1);
         seatA.set(3, 1);
         seatA.set(4, 1);
         seatA.set(8, 1);
         seatA.set(9, 1);
-        seatA.set(12, 1);
-        seatA.set(14, 1);
-        seatA.set(17, 1);
+
 
 
         for(int i =0;i<seatA.size();i++) {
@@ -134,22 +132,8 @@ public class ShowingMapActivity extends AppCompatActivity implements View.OnClic
         btnListA[10].setTag("10");
         btnListA[11] = (Button)v.findViewById(R.id.a11);
         btnListA[11].setTag("11");
-        btnListA[12] = (Button)v.findViewById(R.id.a12);
-        btnListA[12].setTag("12");
-        btnListA[13] = (Button)v.findViewById(R.id.a13);
-        btnListA[13].setTag("13");
-        btnListA[14] = (Button)v.findViewById(R.id.a14);
-        btnListA[14].setTag("14");
-        btnListA[15] = (Button)v.findViewById(R.id.a15);
-        btnListA[15].setTag("15");
-        btnListA[16] = (Button)v.findViewById(R.id.a16);
-        btnListA[16].setTag("16");
-        btnListA[17] = (Button)v.findViewById(R.id.a17);
-        btnListA[17].setTag("17");
-        btnListA[18] = (Button)v.findViewById(R.id.a18);
-        btnListA[18].setTag("18");
-        btnListA[19] = (Button)v.findViewById(R.id.a19);
-        btnListA[19].setTag("19");
+
+
 
 
 
@@ -202,7 +186,7 @@ public class ShowingMapActivity extends AppCompatActivity implements View.OnClic
                     sectionNum = 4;
                     break;
             }
-            int seatNum = Character.getNumericValue(selectedSeatNum.charAt(1))*10 + Character.getNumericValue(selectedSeatNum.charAt(2));
+            //int seatNum = Character.getNumericValue(selectedSeatNum.charAt(1))*10 + Character.getNumericValue(selectedSeatNum.charAt(2));
             //Log.d("KKK", String.valueOf(sectionNum)+" + "+String.valueOf(seatNum));
 
             ((App)getApplicationContext()).ma.startService(selectedSeatNum);

@@ -69,7 +69,7 @@ public class MyService extends Service implements BeaconConsumer { // TODO : imp
         Log.d("HHH", "Service onCreate");
         Init();
         Limit_using_time = 10;
-        Limit_reserving_time = 20;
+        Limit_reserving_time = 40;
         Limit_empty_time = 10;
     }
 

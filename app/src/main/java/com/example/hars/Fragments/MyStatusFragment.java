@@ -117,7 +117,12 @@ public class MyStatusFragment extends Fragment implements Observer {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
                 //TODO : 이 부분이 에러가 뜰 수 있다. - 사용중일 때 앱을 껏다 킨 경우 어떤 것들이 초기화되지 않은 상태가 된다.
-                ((MainActivity)getActivity()).notifyTheStatus(User.Status_user.valueOf(value));
+                try{
+                    ((MainActivity)getActivity()).notifyTheStatus(User.Status_user.valueOf(value));
+                }catch (Exception e){
+
+                }
+
 
             }
 

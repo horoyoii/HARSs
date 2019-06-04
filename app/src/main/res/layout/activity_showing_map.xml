@@ -44,7 +44,7 @@
             android:layout_marginRight="10dp"
             android:background="@android:color/holo_blue_dark">
 
-            <TextView android:text="0/25" />
+            <TextView android:text="12/32" />
 
             <TextView android:text="0/25" />
 
