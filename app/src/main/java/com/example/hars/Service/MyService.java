@@ -53,6 +53,7 @@ public class MyService extends Service implements BeaconConsumer { // TODO : imp
     private int Limit_empty_time;
     private FirebaseUtil mFirebaseUtil;
     HashMap<User.Status_user, Notification> Notify;
+    public static int point =-40;
 
     public MyService() {
 
@@ -195,6 +196,7 @@ public class MyService extends Service implements BeaconConsumer { // TODO : imp
                                             //mUser.user_step_out_over();
                                             firebaseUtil.getThisUserRef().child("status").setValue(User.Status_user.STEPPING_OUT_OVER);
                                             //mUser.user_step_out_over();
+                                            point-=10;
                                             stopForeground(true);
                                             stopSelf();
                                         }

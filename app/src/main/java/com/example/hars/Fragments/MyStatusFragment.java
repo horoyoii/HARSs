@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,14 +51,24 @@ public class MyStatusFragment extends Fragment implements Observer {
     private FrameLayout container_status;
     private Button button_stop;
     private TextView sta, using_time, user_email, CurrentSeat, grade;
+    private static int PICK_IMAGE_REQUEST = 1;
+    ImageView imgView;
 
     @Override
     public void onAttach(Context context) {
         Log.d(TAG, "onAttach()");
         super.onAttach(context);
 
-
     }
+
+    public void loadImagefromGallery(View view) {
+        //Intent 생성
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT); //ACTION_PIC과 차이점?
+        intent.setType("image/*"); //이미지만 보이게
+        //Intent 시작 - 갤러리앱을 열어서 원하는 이미지를 선택할 수 있다.
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,6 +102,8 @@ public class MyStatusFragment extends Fragment implements Observer {
 
         return view;
     }
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

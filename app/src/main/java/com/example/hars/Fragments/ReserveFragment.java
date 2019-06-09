@@ -3,6 +3,7 @@ package com.example.hars.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,19 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-
+import static com.example.hars.Service.MyService.point;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
-import com.example.hars.Application.App;
-import com.example.hars.MainActivity;
-import com.example.hars.Models.User;
+import com.example.hars.Message;
 import com.example.hars.R;
-import com.example.hars.ReservingActivity;
 import com.example.hars.ShowingMapActivity;
 
 
@@ -33,6 +29,10 @@ public class ReserveFragment extends Fragment {
     private View view;
     Button button;
     ImageView start_img;
+    public static final int sub = 101,not_sub=102;
+    final Handler handler = new Handler();
+
+
 
     @Override
     public void onAttach(Context context) {
@@ -53,10 +53,25 @@ public class ReserveFragment extends Fragment {
 
         start_img = view.findViewById(R.id.imageView_start);
         start_img.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ShowingMapActivity.class);
-                startActivity(intent);
+                int period =604080000;
+                if (point<-25){
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            point=0;
+                        }
+                    }, (period*10) );
+                    Intent intent = new Intent(getActivity(), Message.class);
+                    startActivity(intent);
+
+                }
+                else {
+                    Intent intent = new Intent(getActivity(), ShowingMapActivity.class);
+                    startActivity(intent);
+                }
 
             }
         });

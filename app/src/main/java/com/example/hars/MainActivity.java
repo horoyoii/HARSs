@@ -1,6 +1,8 @@
 package com.example.hars;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -10,6 +12,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.hars.Adapters.FragmentAdapter;
 import com.example.hars.Application.App;
@@ -28,6 +33,7 @@ import com.yqritc.scalablevideoview.ScalableType;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,6 +41,10 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity implements Subject{
 
     public ArrayList<Observer> observers;
+    private static int PICK_IMAGE_REQUEST = 1;
+    ImageView imgView;
+    Button button;
+
     @Override
     public void registerObserver(Observer ob) {
         observers.add(ob);
@@ -90,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements Subject{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         ((App)getApplicationContext()).ref(this);
         observers = new ArrayList<>();
 
@@ -111,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements Subject{
 
 
     }
-
 
 
 
