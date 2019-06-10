@@ -1,4 +1,4 @@
-package com.example.hars;
+/*package com.example.hars;
 
 import android.Manifest;
 import android.content.Intent;
@@ -135,7 +135,6 @@ public class TestLoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             //hide_progress_dialog();
 
-
                             startActivity(new Intent(TestLoginActivity.this, MainActivity.class));
                             finish();
                         } else {
@@ -205,3 +204,4 @@ public class TestLoginActivity extends AppCompatActivity {
 
 
 }
+*/

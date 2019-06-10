@@ -8,6 +8,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".Application.App"
@@ -19,19 +22,33 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".ShowingMapActivity"></activity>
         <activity android:name=".ReservingActivity" />
-        <activity android:name=".TestLoginActivity">
+        <activity android:name=".Message"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog"/>
+        <!--
+        <activity android:name=".TsetLoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity?
+
+        -->
+        <activity android:name=".MainActivity" >
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-
         <service
             android:name=".Service.MyService"
             android:enabled="true"
             android:exported="false" />
+
     </application>
 
 </manifest>

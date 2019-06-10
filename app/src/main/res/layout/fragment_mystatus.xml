@@ -25,7 +25,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@color/white"
+            android:background="#00FFFFFF"
             android:src="@drawable/self"
             app:civ_background_color="@color/white"
             app:civ_border_color="#EEEEEE"
@@ -38,7 +38,22 @@
             app:layout_constraintHorizontal_bias="0.523"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
+<!--
+        <Button
+            android:id="@+id/Loadpic"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="Load pic"
+            android:typeface="normal"
+            android:textStyle="bold"
+            android:background="@drawable/border_dialog"
+            android:padding="10dp"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+-->
 
         <TextView
             android:id="@+id/txt_user_mail"
@@ -80,7 +95,7 @@
                     android:id="@+id/ms_txt_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text="-"
                     android:textColor="#590C57"
                     android:textSize="17sp"
                     tools:layout_editor_absoluteX="62dp"

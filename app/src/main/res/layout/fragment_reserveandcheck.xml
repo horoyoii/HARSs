@@ -10,7 +10,8 @@
         android:id="@+id/imgAlbum"
         android:layout_width="match_parent"
         android:layout_height="141dp"
-        android:background="#00f0f0"
+        android:layout_marginTop="10dp"
+        android:background="#00FFFFFF"
         android:transitionName="imgAlbumArt" />
 
 

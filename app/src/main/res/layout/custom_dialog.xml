@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_margin="40dp"
-    android:background="#61AEDC"
+    android:padding="5dp"
+    android:background="@drawable/border_dialog"
     android:orientation="vertical">
 
     <TextView
@@ -14,7 +15,7 @@
         android:layout_marginLeft="1dp"
         android:layout_marginRight="1dp"
         android:layout_marginTop="1dp"
-        android:background="#ffffff"
+        android:background="#00FFFFFF"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:text="커스텀 다이얼로그"
@@ -79,8 +80,5 @@
             android:textSize="16dp" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#61AEDC" />
+
 </LinearLayout>
